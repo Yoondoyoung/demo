@@ -2,21 +2,24 @@ package com.skeleton.demo.controller;
 
 import com.skeleton.demo.dto.UserDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
 
-    @RequestMapping("test")
-    public String test(){
+    @RequestMapping("/test")
+    public String test(Model model, @ModelAttribute UserDto userDto){
         System.out.println("test");
-        UserDto userDto = new UserDto();
-        userDto.setName("test");
-        userDto.setUserId("Yoon");
 
         System.out.println(userDto);
-
-        return "test";
+        return "test.html";
     }
+
+    @GetMapping("login")
+    public String login(){
+        return "user/login.html";
+    }
+
 
 }
