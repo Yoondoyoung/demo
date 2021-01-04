@@ -26,14 +26,14 @@ public class UserController {
         System.out.println("test");
         MailHelper mailHelper = new MailHelper(emailSender);
         SimpleMailMessage message = new SimpleMailMessage();
-        mailHelper.setTo("qkzld13@gmail.com");
-        mailHelper.setFrom("qkzld13@gmail.com");
-        mailHelper.setSubject("테스트중입니다.");
+        mailHelper.setTo("qkzld13@gmail.com");  //수신자 메일
+        mailHelper.setFrom("qkzld13@gmail.com");    //발신자 메일
+        mailHelper.setSubject("테스트중입니다.");  //메일 제목
 
-        String htmlContent = "<a href='www.naver.com'> html 테스트입니다. </p>";
-        mailHelper.setText("테스트내용입니다."+htmlContent,true);
-        mailHelper.send();
-        return "test.html";
+        String htmlContent = "<a href='www.naver.com'> html 테스트입니다. </p>";  //메일에 html 형식 전송
+        mailHelper.setText("테스트내용입니다."+htmlContent,true);   //메일 내용
+        mailHelper.send();  //발송
+        return "test.html"; //테스트용 html
     }
 
     @GetMapping("login")
