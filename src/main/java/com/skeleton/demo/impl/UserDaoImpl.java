@@ -4,9 +4,12 @@ import com.skeleton.demo.dto.UserDto;
 import com.skeleton.demo.service.UserDao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+@Repository("userDaoImpl")
 public class UserDaoImpl implements UserDao {
 
     @Autowired
@@ -24,8 +27,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Map<String, Object> getUserList() throws Exception {
-        return null;
+    public List<UserDto> getUserList() throws Exception {
+
+        return sqlSession.selectList("UserMapper.getUserList");
     }
 
     @Override
