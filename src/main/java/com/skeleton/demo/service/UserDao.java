@@ -1,6 +1,7 @@
 package com.skeleton.demo.service;
 
 import com.skeleton.demo.dto.UserDto;
+import com.skeleton.demo.vo.UserVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public interface UserDao {
 
-    public void addUser(UserDto user) throws Exception;
+    public void addUser(UserVo user) throws Exception;
 
     public UserDto getUser(String userId) throws Exception;
 

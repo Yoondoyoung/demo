@@ -3,6 +3,7 @@ package com.skeleton.demo.impl;
 import com.skeleton.demo.dto.UserDto;
 import com.skeleton.demo.service.UserDao;
 import com.skeleton.demo.service.UserService;
+import com.skeleton.demo.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,10 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
 
     @Override
-    public void addUser(UserDto user) throws Exception {
+    public void addUser(UserDto.loginDto user) throws Exception {
         System.out.println("UserServiceImpl addUser Start");
-        userDao.addUser(user);
+
+        userDao.addUser(user.testConvert());
     }
 
     @Override

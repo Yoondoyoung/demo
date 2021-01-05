@@ -2,6 +2,7 @@ package com.skeleton.demo.impl;
 
 import com.skeleton.demo.dto.UserDto;
 import com.skeleton.demo.service.UserDao;
+import com.skeleton.demo.vo.UserVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ public class UserDaoImpl implements UserDao {
     SqlSession sqlSession;
 
     @Override
-    public void addUser(UserDto user) throws Exception {
+    public void addUser(UserVo user) throws Exception {
         System.out.println("UserDaoImpl addUser Start");
         sqlSession.insert("UserMapper.addUSer",user);
     }

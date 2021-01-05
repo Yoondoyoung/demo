@@ -8,7 +8,7 @@ import java.util.Map;
 @Mapper
 public interface UserService {
 
-    public void addUser(UserDto user) throws Exception;
+    public void addUser(UserDto.loginDto user) throws Exception;
 
     public UserDto getUser(String userId) throws Exception;
 

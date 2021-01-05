@@ -5,19 +5,20 @@ import com.skeleton.demo.dto.UserDto;
 
 import com.skeleton.demo.mail.MailHelper;
 import com.skeleton.demo.service.UserService;
-import com.sun.mail.util.logging.MailHandler;
+
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @AllArgsConstructor
@@ -40,7 +41,6 @@ public class UserController {
         mailHelper.setText("테스트내용입니다."+htmlContent,true);   //메일 내용
         mailHelper.send();  //발송
 
-
         return "test.html"; //테스트용 html
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("addUser")
-    public String addUser(@ModelAttribute UserDto user) throws Exception {
+    public String addUser(@Valid UserDto.loginDto user) throws Exception {
 
         userService.addUser(user);
 
