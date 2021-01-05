@@ -21,27 +21,26 @@ public class MailHelper {
         messageHelper = new MimeMessageHelper(message,true,"utf-8");
     }
 
-    public void setFrom(String fromEmail) throws MessagingException{
+    public void setFrom(String fromEmail) throws MessagingException{ //발송자 메일
         messageHelper.setFrom(fromEmail);
     }
 
-    public void setTo(String email) throws MessagingException{
+    public void setTo(String email) throws MessagingException{  //수신자 메일
         messageHelper.setTo(email);
     }
 
-    public void setText(String text, boolean useHtml) throws MessagingException{
+    public void setText(String text, boolean useHtml) throws MessagingException{    //메일 내용
         messageHelper.setText(text,useHtml);
     }
 
-    public void setInline(String contentId, String pathToInline) throws MessagingException, IOException {
+    public void setInline(String contentId, String pathToInline) throws MessagingException, IOException {   //첨부파일
         File file = new ClassPathResource(pathToInline).getFile();
         FileSystemResource fsr = new FileSystemResource(file);
 
-        messageHelper.addInline(contentId,fsr
-        );
+        messageHelper.addInline(contentId,fsr);
     }
 
-    public void send(){
+    public void send(){ //전송
         try{
             sender.send(message);
         }catch(Exception e){
@@ -50,7 +49,7 @@ public class MailHelper {
     }
 
 
-    public void setSubject(String subject) throws MessagingException {
+    public void setSubject(String subject) throws MessagingException {  //메일 제목
         messageHelper.setSubject(subject);
     }
 }
