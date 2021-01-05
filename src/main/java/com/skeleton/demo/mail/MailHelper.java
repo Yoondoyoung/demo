@@ -33,6 +33,10 @@ public class MailHelper {
         messageHelper.setText(text,useHtml);
     }
 
+    public void setSubject(String subject) throws MessagingException {  //메일 제목
+        messageHelper.setSubject(subject);
+    }
+
     public void setInline(String contentId, String pathToInline) throws MessagingException, IOException {   //첨부파일
         File file = new ClassPathResource(pathToInline).getFile();
         FileSystemResource fsr = new FileSystemResource(file);
@@ -49,7 +53,5 @@ public class MailHelper {
     }
 
 
-    public void setSubject(String subject) throws MessagingException {  //메일 제목
-        messageHelper.setSubject(subject);
-    }
+
 }

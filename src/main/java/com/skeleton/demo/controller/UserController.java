@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/buttonTest")
     public String test() throws MessagingException {
         System.out.println("test");
         MailHelper mailHelper = new MailHelper(emailSender);
@@ -39,6 +39,8 @@ public class UserController {
         String htmlContent = "<a href='www.naver.com'> html 테스트입니다. </p>";  //메일에 html 형식 전송
         mailHelper.setText("테스트내용입니다."+htmlContent,true);   //메일 내용
         mailHelper.send();  //발송
+
+
         return "test.html"; //테스트용 html
     }
 
