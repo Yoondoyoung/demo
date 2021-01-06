@@ -1,10 +1,10 @@
 package com.skeleton.demo.controller;
 
-import com.skeleton.demo.dto.UserDto;
+import com.skeleton.demo.user.dto.UserDto;
 
 
 import com.skeleton.demo.mail.MailHelper;
-import com.skeleton.demo.service.UserService;
+import com.skeleton.demo.user.service.UserService;
 
 
 import lombok.AllArgsConstructor;
@@ -41,12 +41,12 @@ public class UserController {
         mailHelper.setText("테스트내용입니다."+htmlContent,true);   //메일 내용
         mailHelper.send();  //발송
 
-        return "test.html"; //테스트용 html
+        return "test"; //테스트용 html
     }
 
     @GetMapping("login")
     public String login(){
-        return "user/login.html";
+        return "user/login";
     }
 
     @PostMapping("addUser")
@@ -56,7 +56,7 @@ public class UserController {
 
         System.out.println(user);
 
-        return "test.html";
+        return "test";
     }
 
     @RequestMapping("getUserList")

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.skeleton.demo.user.service.UserService">
+<mapper namespace="com.skeleton.demo.calendar.service.CalendarService">
 
-    <resultMap id="userSelectMap" type="com.skeleton.demo.user.dto.UserDto">
+    <resultMap id="userSelectMap" type="com.skeleton.demo.calendar.vo.CalendarVO">
            <result property="userId" column="userId" jdbcType="VARCHAR"/>
            <result property="password" column="password" jdbcType="VARCHAR"/>
 
     </resultMap>
 
-    <insert id="addUser" parameterType="com.skeleton.demo.user.dto.UserDto">
-        INSERT INTO yoon(userId,password) values('${userId}','${password}')
-
+    <insert id="addUser" parameterType="com.skeleton.demo.calendar.vo.CalendarVO">
+        INSERT INTO CALENDAR(TITLE,STARTDATE,ENDDATE,USERID,DETAIL)
+                VALUES('${title}','${startDate}','${endDate}','${userId','detail')
     </insert>
 
     <select id="getUserList" resultMap="userSelectMap">
