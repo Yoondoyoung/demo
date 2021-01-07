@@ -1,10 +1,14 @@
 package com.skeleton.demo.controller;
 
+import com.skeleton.demo.calendar.dto.CalendarDTO;
 import com.skeleton.demo.calendar.service.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/calendar/**")
@@ -14,7 +18,7 @@ public class CalendarController {
     CalendarService calendarService;
 
     @GetMapping("view")
-    public String CalendarView() throws Exception{
+    public String CalendarView(){
 
         System.out.println("calendar View Start");
 
@@ -23,10 +27,18 @@ public class CalendarController {
     }
 
     //TODO addCalendar
-    @RequestMapping("addCalendar")
-    public String addCalendar() throws Exception{
+    @GetMapping("addCalendar")
+    public String addCalendar(){
+
+        return "/calendar/addCalendar";
+    }
+
+    @PostMapping("addCalendar")
+    public String addCalendar(@Valid CalendarDTO.addCalendar calendarDTO) throws Exception {
         System.out.println("addCalendar Start");
-        return "";
+        calendarService.addCalendar(calendarDTO);
+
+        return "/calendar/addCalendar";
     }
 
     //TODO updateCalendar

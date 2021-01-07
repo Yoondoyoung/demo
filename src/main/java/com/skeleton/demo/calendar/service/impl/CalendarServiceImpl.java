@@ -1,6 +1,7 @@
 package com.skeleton.demo.calendar.service.impl;
 
 import com.skeleton.demo.calendar.dao.CalendarDAO;
+import com.skeleton.demo.calendar.dto.CalendarDTO;
 import com.skeleton.demo.calendar.service.CalendarService;
 import com.skeleton.demo.calendar.vo.CalendarVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,9 @@ public class CalendarServiceImpl implements CalendarService {
     CalendarDAO calendarDAO;
 
     @Override
-    public void addCalendar(CalendarVO calendarVO) throws Exception {
-        calendarDAO.addCalendar(calendarVO);
+    public void addCalendar(CalendarDTO.addCalendar calendarDTO) throws Exception {
+
+        calendarDAO.addCalendar(calendarDTO.addCalendarConvert());
     }
 
     @Override

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<script>
+    $( function() {
+
+            $(".date").datepicker({dateFormat:'yy-mm-dd'});
+
+        }
+    );
+</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<title>Insert title here</title>
+</head>
+<body>
+<form action="addCalendar" method="post">
+             <input type="hidden" name="userId" value="">
+    일정 제목 : <input type="text" name="title">
+
+    시작일 : <input type="text" name="startDate" class="date">
+
+    종료일 : <input type="text" name="endDate" class="date">
+
+    </br>	<input type="submit">
+</form>
+</body>

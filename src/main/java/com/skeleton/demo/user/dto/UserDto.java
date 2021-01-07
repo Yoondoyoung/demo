@@ -17,5 +17,12 @@ public class UserDto {
         }
     }
 
+    @Data
+    public static class email{
+        private String userId;
+        private String email;
+
+    }
+
 }
 
