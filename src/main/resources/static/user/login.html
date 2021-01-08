@@ -1,5 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+    // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('665120d7a4031cc62a707bb62dfd0f6b');
+
+    // SDK 초기화 여부를 판단합니다.
+    console.log(Kakao.isInitialized());
+
+</script>
+
+<script type="text/javascript">
+    function loginWithKakao() {
+        Kakao.Auth.authorize({
+            redirectUri: 'http://localhost:9090/kakaoGetCode'
+        })
+    }
+    // 아래는 데모를 위한 UI 코드입니다.
+    displayToken()
+    function displayToken() {
+        const token = getCookie('authorize-access-token')
+        if(token) {
+            Kakao.Auth.setAccessToken(token)
+            Kakao.Auth.getStatusInfo(({ status }) => {
+                if(status === 'connected') {
+                    document.getElementById('token-result').innerText = 'login success. token: ' + Kakao.Auth.getAccessToken()
+                } else {
+                    Kakao.Auth.setAccessToken(null)
+                }
+            })
+        }
+    }
+    function getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,12 +45,26 @@
     <form action="/addUser" method="post">
     <input type="text" name="userId"/>
     <input type="text" name="password"/>
+    <input type="text" name="userName"/>
+    <input type="text" name="email"/>
+
+
     <input type="submit">
     </form>
 
     <form action="/buttonTest">
         <input type="submit" name="buttonTest">
     </form>
+
+    <p id="token-result"></p>
+    <a id="custom-login-btn" href="javascript:loginWithKakao()">
+        <img
+                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+                width="222"
+        />
+    </a>
+
+
 
 </body>
 </html>

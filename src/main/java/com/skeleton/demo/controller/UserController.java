@@ -49,6 +49,13 @@ public class UserController {
         return "user/login";
     }
 
+    @GetMapping("kakaoGetCode")
+    public String kakaoGetCode(@RequestParam("code") String code){
+        System.out.println(code);
+
+        return "user/login";
+    }
+
     @PostMapping("addUser")
     public String addUser(@Valid UserDto.loginDto user) throws Exception {
 

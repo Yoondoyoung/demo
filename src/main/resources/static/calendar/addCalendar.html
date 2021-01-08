@@ -1,5 +1,10 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+
     $( function() {
 
             $(".date").datepicker({dateFormat:'yy-mm-dd'});
@@ -7,23 +12,101 @@
         }
     );
 </script>
+
+<script type="text/javascript">
+
+    //<![CDATA[
+
+    // 현재 시간 출력
+
+    function PrintTime() {
+
+        var today = new Date();
+
+        var hh = today.getHours();
+
+        var mi = today.getMinutes();
+
+        var ss = today.getSeconds();
+
+        document.getElementById("result").innerHTML = hh + ":" + mi + ":" + ss;
+
+    }
+
+
+
+    // 중지를 위해 ID 보관
+
+    var timerId = null;
+
+
+
+    // 시계 시작
+
+    function StartClock() {
+
+        PrintTime();
+
+        timerId = setInterval(PrintTime, 1000);
+
+    }
+
+
+
+    // 시계 중지
+
+    function StopClock() {
+
+        if(timerId != null) {
+
+            clearInterval(timerId);
+
+        }
+
+    }
+
+    //]]>
+
+</script>
+<meta charset="utf-8">
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 
 <title>Insert title here</title>
-</head>
+
 <body>
-<form action="addCalendar" method="post">
-             <input type="hidden" name="userId" value="">
+<form action="/calendar/addCalendar" method="POST">
+
+             <input type="hidden" name="userId" value="Yoon">
     일정 제목 : <input type="text" name="title">
 
     시작일 : <input type="text" name="startDate" class="date">
 
     종료일 : <input type="text" name="endDate" class="date">
 
+    일정내용 : <input type="text" name="detail">
+
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </br>	<input type="submit">
 </form>
+
+
+
+
+
+<!--  시계가 보여질 div -->
+
+<div id="result"></div>
+
+
+
+<input type="button" value="시작" onclick="StartClock();" />
+
+<input type="button" value="중지" onclick="StopClock();" />
+
 </body>

@@ -10,12 +10,12 @@
     </resultMap>
 
     <insert id="addUser" parameterType="com.skeleton.demo.user.dto.UserDto">
-        INSERT INTO yoon(userId,password) values('${userId}','${password}')
+        INSERT INTO TESTUSER(userId,password,username,email) values('${userId}','${password}','${username}','email')
 
     </insert>
 
     <select id="getUserList" resultMap="userSelectMap">
-        SELECT * FROM yoon
+        SELECT * FROM TESTUSER
     </select>
 
 </mapper>
