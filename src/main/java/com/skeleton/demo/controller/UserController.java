@@ -1,5 +1,6 @@
 package com.skeleton.demo.controller;
 
+
 import com.skeleton.demo.user.dto.UserDto;
 
 
@@ -8,15 +9,20 @@ import com.skeleton.demo.user.service.UserService;
 
 
 import lombok.AllArgsConstructor;
+import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 
@@ -46,15 +52,73 @@ public class UserController {
 
     @GetMapping("login")
     public String login(){
+        System.out.println("login View Start");
         return "user/login";
     }
+
+//    @GetMapping("kakaoGetCode")
+//    public String kakaoGetCode(@RequestParam("code") String code, Model model){
+//        System.out.println(code);
+//        model.addAttribute("code",code);
+//        return "user/login";
+//    }
 
     @GetMapping("kakaoGetCode")
-    public String kakaoGetCode(@RequestParam("code") String code){
-        System.out.println(code);
+    public String kakaoGetToken(@RequestParam("code") String code) throws IOException {
+        String access_Token = "";
+        String refresh_Token = "";
+        String reqURL = "https://kauth.kakao.com/oauth/token";
+
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            //    POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            //    POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=fd4e89f65c80feb60cb1a52e34ddbd2d");
+            sb.append("&redirect_uri=http://localhost:9090/kakaoGetCode");
+            sb.append("&code=" + code);
+            bw.write(sb.toString());
+            bw.flush();
+
+            //    결과 코드가 200이라면 성공
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("response body : " + result);
+
+            //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+
+            JSONObject jsonObject = new JSONObject(result);
+
+            System.out.println(jsonObject);
+
+
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("변환에 실패");
+            e.printStackTrace();
+        }
 
         return "user/login";
     }
+
+
 
     @PostMapping("addUser")
     public String addUser(@Valid UserDto.loginDto user) throws Exception {

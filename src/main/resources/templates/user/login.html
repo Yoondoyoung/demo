@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
     // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -10,12 +10,39 @@
 
 </script>
 
+
+<script type="text/javascript">
+    Kakao.Auth.createLoginButton({
+        container: '#kakao-login-btn',
+        success: function(authObj) {
+            Kakao.API.request({
+                url: '/v2/user/me',
+                success: function(res) {
+                    alert(JSON.stringify(res))
+                },
+                fail: function(error) {
+                    alert(
+                        'login success, but failed to request user information: ' +
+                        JSON.stringify(error)
+                    )
+                },
+            })
+        },
+        fail: function(err) {
+            alert('failed to login: ' + JSON.stringify(err))
+        },
+    })
+</script>
+
 <script type="text/javascript">
     function loginWithKakao() {
         Kakao.Auth.authorize({
             redirectUri: 'http://localhost:9090/kakaoGetCode'
         })
+
+
     }
+
     // 아래는 데모를 위한 UI 코드입니다.
     displayToken()
     function displayToken() {
@@ -36,6 +63,20 @@
         const parts = value.split("; " + name + "=");
         if (parts.length === 2) return parts.pop().split(";").shift();
     }
+
+    function userInfo(){
+        Kakao.API.request({
+            url: '/v2/user/me',
+            success: function(response) {
+                console.log(response);
+            },
+            fail: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+
 </script>
 <head>
     <meta charset="UTF-8">
@@ -56,6 +97,8 @@
         <input type="submit" name="buttonTest">
     </form>
 
+
+
     <p id="token-result"></p>
     <a id="custom-login-btn" href="javascript:loginWithKakao()">
         <img
@@ -63,6 +106,12 @@
                 width="222"
         />
     </a>
+
+    <a if="testUserInfo" href="javascript:userInfo()">test</a>
+
+    <span th:text="${code}"></span>
+
+    <a id="kakao-login-btn"></a>
 
 
 
