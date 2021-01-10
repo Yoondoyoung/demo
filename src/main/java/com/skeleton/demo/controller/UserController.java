@@ -64,7 +64,7 @@ public class UserController {
 //    }
 
     @GetMapping("kakaoGetCode")
-    public String kakaoGetToken(@RequestParam("code") String code) throws IOException {
+    public String kakaoGetToken(@RequestParam("code") String code,Model model) throws IOException {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -106,6 +106,9 @@ public class UserController {
             JSONObject jsonObject = new JSONObject(result);
 
             System.out.println(jsonObject);
+            System.out.println(jsonObject.get("access_token"));
+            System.out.println(jsonObject.get("refresh_token"));
+            model.addAttribute("accessToken",jsonObject.get("access_token"));
 
 
             br.close();
