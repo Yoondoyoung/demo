@@ -52,6 +52,7 @@ public class UserController {
 
     @GetMapping("login")
     public String login(){
+
         System.out.println("login View Start");
         return "user/login";
     }
